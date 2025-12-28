@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.venv/
+env/
+
+# Environment Variables (Secrets)
+.env
+.env.local
+
+# Docker / Data Volumes
+qdrant_data/
+localstack_data/
+postgres_data/
+
+# IDE Settings
+.vscode/
+.idea/
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+# ML Model Cache (If downloaded locally)
+models/
+cache/

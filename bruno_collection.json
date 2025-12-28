@@ -1,0 +1,163 @@
+{
+"info": {
+"name": "Secure RAG PoC",
+"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+},
+"item": [
+{
+"name": "1. Ingest Document (Tenant A)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json",
+"type": "text"
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\n  \"tenant_id\": \"tenant_A\",\n  \"text\": \"Project Alpha is a top-secret initiative led by John Doe at Google HQ. The budget is $5M.\"\n}"
+},
+"url": {
+"raw": "http://localhost:8000/api/v1/ingest",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8000",
+"path": [
+"api",
+"v1",
+"ingest"
+]
+}
+},
+"response": []
+},
+{
+"name": "2. Query Document (Tenant A)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json",
+"type": "text"
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\n  \"tenant_id\": \"tenant_A\",\n  \"query\": \"Who leads Project Alpha?\"\n}"
+},
+"url": {
+"raw": "http://localhost:8000/api/v1/query",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8000",
+"path": [
+"api",
+"v1",
+"query"
+]
+}
+},
+"response": []
+},
+{
+"name": "3. Cross-Tenant Attack (Tenant B)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json",
+"type": "text"
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\n  \"tenant_id\": \"tenant_B\",\n  \"query\": \"Who leads Project Alpha?\"\n}"
+},
+"url": {
+"raw": "http://localhost:8000/api/v1/query",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8000",
+"path": [
+"api",
+"v1",
+"query"
+]
+}
+},
+"response": []
+},
+{
+"name": "4. Train Anomaly Model (Normal Query)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json",
+"type": "text"
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\n  \"tenant_id\": \"tenant_A\",\n  \"query\": \"What is the HR policy?\"\n}"
+},
+"url": {
+"raw": "http://localhost:8000/api/v1/query",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8000",
+"path": [
+"api",
+"v1",
+"query"
+]
+}
+},
+"response": []
+},
+{
+"name": "5. Anomaly Attack (SQL Injection)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json",
+"type": "text"
+}
+],
+"body": {
+"mode": "raw",
+"raw": "{\n  \"tenant_id\": \"tenant_A\",\n  \"query\": \"SELECT * FROM users; DROP TABLE;\"\n}"
+},
+"url": {
+"raw": "http://localhost:8000/api/v1/query",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8000",
+"path": [
+"api",
+"v1",
+"query"
+]
+}
+},
+"response": []
+}
+]
+}
